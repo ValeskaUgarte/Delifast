@@ -1,0 +1,255 @@
+/* ========== ESTILOS GENERALES ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: #fcfbfb;
+}
+
+/* ========== RECTÁNGULO MORADO SUPERIOR ========== */
+.top-bar {
+  background-color: purple;
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Logo a la izquierda */
+.top-bar-logo {
+  height: 40px;
+  width: auto;
+  cursor: pointer;
+}
+
+.top-bar button,
+.top-bar .dropdown button {
+  background: white;
+  color: purple;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.dropdown-content a {
+  color: purple;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: normal;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Ajustar navbar para que esté debajo */
+.navbar {
+  top: 0;
+}
+
+/* ========== MEJORAS DE TIPOGRAFÍA ========== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.hero-section h1 {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.card h3, .card h4, .card h5 {
+  font-weight: 600;
+}
+
+p {
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 26px;
+}
+
+.navbar-menu a {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+label {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.text-muted {
+  font-weight: 400;
+}
+
+/* ========== MEJORAS VISUALES HOME ========== */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.9), rgba(75, 0, 130, 0.9));
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.2rem !important;
+  }
+  
+  .hero-section p {
+    font-size: 1.1rem !important;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer_1 {
+  font-size: 8px;
+}
+
+/* ========== ESTILOS DEL CARRITO ========== */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  gap: 10px;
+}
+
+.cart-item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.cart-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item-price {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-item-controls button {
+  padding: 3px 8px;
+  font-size: 0.85rem;
+}
+
+.cart-item-quantity {
+  font-weight: 600;
+  min-width: 25px;
+  text-align: center;
+}
+
+.cart-item-total {
+  font-weight: 600;
+  font-size: 0.95rem;
+  min-width: 80px;
+  text-align: right;
+}
+
+.cart-summary {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
