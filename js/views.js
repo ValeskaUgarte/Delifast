@@ -612,56 +612,6 @@ function renderDelivery() {
 }
 
 // VISTA: TRACKING (Seguimiento del Pedido)
-// function renderTracking() {
-//   var html = '<div class="container my-4 fade-in">';
-  
-//   var user = getCurrentUser();
-//   var totalOrders = user ? user.totalOrders || 0 : 0;
-  
-//   html += '<div class="text-center mb-4">';
-//   if (totalOrders === 0) {
-//     html += '<img src="img/tupedidocamino2.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
-//     html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
-//   } else {
-//     html += '<img src="https://pbs.twimg.com/media/G6eL6RTWMAAn0nk?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
-//   }
-//   html += '</div>';
-  
-//   html += '<div style="background: #e0e0e0; border-radius: 15px; padding: 20px; margin-bottom: 30px; text-align: center; min-height: 300px; position: relative; overflow: hidden;">';
-//   html += '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.6857448784894!2d-70.64827368479468!3d-33.44476108076442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a6c5d3e3f5%3A0x4e5c5e5c5e5c5e5c!2sAlmirante%20Barroso%2079%2C%20Santiago!5e0!3m2!1ses!2scl!4v1234567890123!5m2!1ses!2scl" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>';
-//   html += '</div>';
-  
-//   html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px;">';
-  
-//   html += '<div class="text-center">';
-//   html += '<img src="img/repartidorencamino.jpg" alt="En Camino" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">';
-//   html += '<p style="margin-top: 8px; font-weight: 600; color: #333;">En camino</p>';
-//   html += '</div>';
-  
-//   html += '<div class="text-center">';
-//   html += '<img src="img/repartidorllego.jpg" alt="Llegó" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); opacity: 0.4;">';
-//   html += '<p style="margin-top: 8px; font-weight: 600; color: #999;">Llegó</p>';
-//   html += '</div>';
-  
-//   html += '<div class="text-center">';
-//   html += '<img src="img/repartidorentrego.jpg" alt="Entregado" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); opacity: 0.4;">';
-//   html += '<p style="margin-top: 8px; font-weight: 600; color: #999;">Entregado</p>';
-//   html += '</div>';
-  
-//   html += '</div>';
-  
-//   html += getBackToHomeButton();
-  
-//   html += '<div style="margin-top: 60px; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.85rem; color: #666;">';
-//   html += '<p style="margin: 5px 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl | WhatsApp: +569 8765 4321</p>';
-//   html += '</div>';
-  
-//   html += '</div>';
-//   return html;
-// }
-
-
-// VISTA: TRACKING (Seguimiento del Pedido)
 function renderTracking() {
   var html = '<div class="container my-4 fade-in">';
   
@@ -670,13 +620,34 @@ function renderTracking() {
   
   html += '<div class="text-center mb-4">';
   if (totalOrders === 0) {
-    // ==== IMAGEN LOCAL ====
-    html += '<img src="img/tupedidoencamino.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+    html += '<img src="img/tupedidocamino2.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
     html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
   } else {
-    // ==== URL WEB ====
     html += '<img src="https://pbs.twimg.com/media/G6eL6RTWMAAn0nk?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
   }
+  html += '</div>';
+  
+  html += '<div style="background: #e0e0e0; border-radius: 15px; padding: 20px; margin-bottom: 30px; text-align: center; min-height: 300px; position: relative; overflow: hidden;">';
+  html += '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.6857448784894!2d-70.64827368479468!3d-33.44476108076442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a6c5d3e3f5%3A0x4e5c5e5c5e5c5e5c!2sAlmirante%20Barroso%2079%2C%20Santiago!5e0!3m2!1ses!2scl!4v1234567890123!5m2!1ses!2scl" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>';
+  html += '</div>';
+  
+  html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px;">';
+  
+  html += '<div class="text-center">';
+  html += '<img src="img/repartidorencamino.jpg" alt="En Camino" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">';
+  html += '<p style="margin-top: 8px; font-weight: 600; color: #333;">En camino</p>';
+  html += '</div>';
+  
+  html += '<div class="text-center">';
+  html += '<img src="img/repartidorllego.jpg" alt="Llegó" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); opacity: 0.4;">';
+  html += '<p style="margin-top: 8px; font-weight: 600; color: #999;">Llegó</p>';
+  html += '</div>';
+  
+  html += '<div class="text-center">';
+  html += '<img src="img/repartidorentrego.jpg" alt="Entregado" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); opacity: 0.4;">';
+  html += '<p style="margin-top: 8px; font-weight: 600; color: #999;">Entregado</p>';
+  html += '</div>';
+  
   html += '</div>';
   
   html += getBackToHomeButton();
@@ -688,6 +659,35 @@ function renderTracking() {
   html += '</div>';
   return html;
 }
+
+
+// VISTA: TRACKING (Seguimiento del Pedido)
+// function renderTracking() {
+//   var html = '<div class="container my-4 fade-in">';
+  
+//   var user = getCurrentUser();
+//   var totalOrders = user ? user.totalOrders || 0 : 0;
+  
+//   html += '<div class="text-center mb-4">';
+//   if (totalOrders === 0) {
+//     // ==== IMAGEN LOCAL ====
+//     html += '<img src="img/tupedidoencamino.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+//     html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
+//   } else {
+//     // ==== URL WEB ====
+//     html += '<img src="https://pbs.twimg.com/media/G6eL6RTWMAAn0nk?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+//   }
+//   html += '</div>';
+  
+//   html += getBackToHomeButton();
+  
+//   html += '<div style="margin-top: 60px; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.85rem; color: #666;">';
+//   html += '<p style="margin: 5px 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl | WhatsApp: +569 8765 4321</p>';
+//   html += '</div>';
+  
+//   html += '</div>';
+//   return html;
+// }
 
 // VISTA: PIZZA
 function renderPizza() {
