@@ -72,7 +72,7 @@ function renderView() {
   updateNavbar();
 }
 
-// Actualizar barra superior morada
+
 // Actualizar barra superior morada
 function updateTopBar() {
   var topBar = document.getElementById('top-bar');
@@ -111,9 +111,10 @@ function updateTopBar() {
   }
   
   // CARRITO
-  topBarHTML += '<img src="img/carrito.jpg" onclick="navigate(\'cart\')" alt="Carrito" style="height: 30px; width: auto; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">';
-  
-  topBarHTML += '</div>';
+  // CARRITO con mejor soporte móvil
+topBarHTML += '<div onclick="navigate(\'cart\')" style="cursor: pointer; -webkit-tap-highlight-color: transparent; padding: 5px;">';
+topBarHTML += '<img src="img/carrito.jpg" alt="Carrito" style="height: 30px; width: auto; display: block; pointer-events: none;">';
+topBarHTML += '</div>';
   
   topBar.innerHTML = topBarHTML;
 }

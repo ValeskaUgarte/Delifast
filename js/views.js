@@ -99,8 +99,8 @@ function renderHome() {
 // VISTA: LOGIN
 function renderLogin() {
   var html = '<div class="container fade-in" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">';
-  html += '<div style="max-width: 200px; width: 100%;">';
-  html += '<div class="card" style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">';
+  html += '<div style="width: 100%; max-width: 500px;">';
+  html += '<div class="card" style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 100%;">';
   html += '<div class="text-center mb-4">';
   html += '<h1 style="font-size: 4rem; margin-bottom: 10px;">🍔</h1>';
   html += '<h2 style="color: #333; margin-bottom: 10px;">Bienvenido a DeliFast</h2>';
@@ -611,12 +611,20 @@ function renderDelivery() {
   return html;
 }
 
-// VISTA: CALL DELIVERY (Llamar Repartidor)
+// VISTA: TRACKING (Seguimiento del Pedido)
 function renderTracking() {
   var html = '<div class="container my-4 fade-in">';
   
-  html += '<div class="text-center mb-3">';
-  html += '<img src="img/tupedidoencamino.jpg" alt="Tu Pedido en Camino" style="max-width: 250px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+  var user = getCurrentUser();
+  var totalOrders = user ? user.totalOrders || 0 : 0;
+  
+  html += '<div class="text-center mb-4">';
+  if (totalOrders === 0) {
+    html += '<img src="img/tupedidocamino2.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+    html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
+  } else {
+    html += '<img src="https://pbs.twimg.com/media/G6eL6RTWMAAn0nk?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+  }
   html += '</div>';
   
   html += '<div style="background: #e0e0e0; border-radius: 15px; padding: 20px; margin-bottom: 30px; text-align: center; min-height: 300px; position: relative; overflow: hidden;">';
@@ -652,35 +660,23 @@ function renderTracking() {
   return html;
 }
 
+
 // VISTA: TRACKING (Seguimiento del Pedido)
 function renderTracking() {
   var html = '<div class="container my-4 fade-in">';
   
+  var user = getCurrentUser();
+  var totalOrders = user ? user.totalOrders || 0 : 0;
+  
   html += '<div class="text-center mb-4">';
-  html += '<img src="img/tupedidoencamino.jpg" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
-  html += '</div>';
-  
-  html += '<div style="background: #e0e0e0; border-radius: 15px; padding: 20px; margin-bottom: 30px; text-align: center; min-height: 300px; position: relative; overflow: hidden;">';
-  html += '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.6857448784894!2d-70.64827368479468!3d-33.44476108076442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a6c5d3e3f5%3A0x4e5c5e5c5e5c5e5c!2sAlmirante%20Barroso%2079%2C%20Santiago!5e0!3m2!1ses!2scl!4v1234567890123!5m2!1ses!2scl" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>';
-  html += '</div>';
-  
-  html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px;">';
-  
-  html += '<div class="text-center">';
-  html += '<img src="img/repartidorencamino.jpg" alt="En Camino" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">';
-  html += '<p style="margin-top: 8px; font-weight: 600; color: #333;">En camino</p>';
-  html += '</div>';
-  
-  html += '<div class="text-center">';
-  html += '<img src="img/repartidorllego.jpg" alt="Llegó" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); opacity: 0.4;">';
-  html += '<p style="margin-top: 8px; font-weight: 600; color: #999;">Llegó</p>';
-  html += '</div>';
-  
-  html += '<div class="text-center">';
-  html += '<img src="img/repartidorentrego.jpg" alt="Entregado" style="width: 100%; max-width: 150px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); opacity: 0.4;">';
-  html += '<p style="margin-top: 8px; font-weight: 600; color: #999;">Entregado</p>';
-  html += '</div>';
-  
+  if (totalOrders === 0) {
+    // ==== IMAGEN LOCAL ====
+    html += '<img src="img/tupedidoencamino1.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+    html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
+  } else {
+    // ==== URL WEB ====
+    html += '<img src="https://pbs.twimg.com/media/G6eL6RTWMAAn0nk?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+  }
   html += '</div>';
   
   html += getBackToHomeButton();
@@ -759,61 +755,53 @@ function renderProfile() {
     return '';
   }
   
-  var membership = getMembershipInfo(user.membershipLevel || 'Plebeyo');
+  var membership = getMembershipInfo(user.membershipLevel || 'Viento');
   var totalOrders = user.totalOrders || 0;
   var clientRating = user.clientRating || 5.0;
   
   var html = '<div class="container my-4 fade-in">';
-  html += '<div style="background-image: url(\'' + membership.banner + '\'); background-size: cover; background-position: center; color: white; padding: 40px; border-radius: 15px; margin-bottom: 30px; text-align: center; min-height: 150px; display: flex; align-items: center; justify-content: center;"><div style="background: rgba(0,0,0,0.6); padding: 20px; border-radius: 10px;"><h2 style="margin: 0;">' + membership.greeting + ', ' + user.name + '</h2><p style="margin: 5px 0 0 0; font-size: 1rem;">' + membership.benefits + '</p></div></div>';
   
-  // Encabezado con membresía y calificación
-  html += '<div style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px;">';
-  html += '<div style="font-size: 4rem; margin-bottom: 10px;">' + membership.icon + '</div>';
-  html += '<h2 style="margin: 0 0 10px 0;"> ' + user.name + '</h2>';
-  html += '<p style="margin: 0; font-size: 1.1rem; opacity: 0.9;">' + membership.greeting + '</p>';
-  html += '<div style="margin-top: 15px; font-size: 2rem; letter-spacing: 5px;">';
-  for (var i = 0; i < 5; i++) {
-    html += i < Math.floor(clientRating) ? '⭐' : '☆';
-  }
-  html += '</div>';
-  html += '<p style="margin: 5px 0 0 0; font-size: 0.9rem;">Tu calificación como cliente: ' + clientRating.toFixed(1) + '/5</p>';
-  html += '<p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.9;">(Calificación otorgada por repartidores)</p>';
+  // Encabezado compacto con saludo personalizado
+  html += '<div style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px;">';
+  html += '<div style="font-size: 3rem; margin-bottom: 10px;">' + membership.icon + '</div>';
+  html += '<h3 style="margin: 0 0 8px 0; font-size: 1.5rem;">' + membership.greeting + '</h3>';
+  html += '<p style="margin: 0; font-size: 1rem; opacity: 0.9;">' + user.name + ' - Nivel ' + (user.membershipLevel || 'Viento') + '</p>';
   html += '</div>';
   
-  // Formulario editable de información personal
-  html += '<div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px;">';
-  html += '<h4 style="margin-bottom: 15px;">📋 Información Personal (Editable)</h4>';
+  // Estadísticas compactas
+  html += '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">';
+  html += '<div style="background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
+  html += '<div style="font-size: 1.8rem; color: #667eea; font-weight: bold;">' + totalOrders + '</div>';
+  html += '<p style="margin: 5px 0 0 0; font-size: 0.8rem; color: #666;">Pedidos</p>';
+  html += '</div>';
+  html += '<div style="background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
+  html += '<div style="font-size: 1.8rem; color: #28a745; font-weight: bold;">' + membership.discount + '%</div>';
+  html += '<p style="margin: 5px 0 0 0; font-size: 0.8rem; color: #666;">Descuento</p>';
+  html += '</div>';
+  html += '<div style="background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
+  html += '<div style="font-size: 1.8rem; color: #ffc107;">⭐</div>';
+  html += '<p style="margin: 5px 0 0 0; font-size: 0.8rem; color: #666;">' + clientRating.toFixed(1) + '/5</p>';
+  html += '</div>';
+  html += '</div>';
+  
+  // Formulario compacto
+  html += '<div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 15px;">';
+  html += '<h5 style="margin-bottom: 12px; font-size: 1rem;">📋 Información Personal</h5>';
   html += '<form onsubmit="updateProfile(event)">';
-  html += '<div style="margin-bottom: 12px;"><label style="display: block; font-weight: 600; margin-bottom: 5px;">Nombre:</label>';
-  html += '<input type="text" id="profile-name" class="form-control" value="' + user.name + '" required></div>';
-  html += '<div style="margin-bottom: 12px;"><label style="display: block; font-weight: 600; margin-bottom: 5px;">Email:</label>';
-  html += '<input type="email" id="profile-email" class="form-control" value="' + user.email + '" required></div>';
-  html += '<div style="margin-bottom: 12px;"><label style="display: block; font-weight: 600; margin-bottom: 5px;">Teléfono:</label>';
-  html += '<input type="tel" id="profile-phone" class="form-control" value="' + (user.phone || '') + '"></div>';
-  html += '<div style="margin-bottom: 12px;"><label style="display: block; font-weight: 600; margin-bottom: 5px;">Dirección:</label>';
-  html += '<input type="text" id="profile-address" class="form-control" value="' + (user.address || '') + '"></div>';
-  html += '<button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px;">Guardar Cambios</button>';
+  html += '<div style="margin-bottom: 10px;"><label style="display: block; font-weight: 600; margin-bottom: 3px; font-size: 0.9rem;">Nombre:</label>';
+  html += '<input type="text" id="profile-name" class="form-control" value="' + user.name + '" required style="padding: 8px; font-size: 0.9rem;"></div>';
+  html += '<div style="margin-bottom: 10px;"><label style="display: block; font-weight: 600; margin-bottom: 3px; font-size: 0.9rem;">Email:</label>';
+  html += '<input type="email" id="profile-email" class="form-control" value="' + user.email + '" required style="padding: 8px; font-size: 0.9rem;"></div>';
+  html += '<div style="margin-bottom: 10px;"><label style="display: block; font-weight: 600; margin-bottom: 3px; font-size: 0.9rem;">Teléfono:</label>';
+  html += '<input type="tel" id="profile-phone" class="form-control" value="' + (user.phone || '') + '" style="padding: 8px; font-size: 0.9rem;"></div>';
+  html += '<div style="margin-bottom: 12px;"><label style="display: block; font-weight: 600; margin-bottom: 3px; font-size: 0.9rem;">Dirección:</label>';
+  html += '<input type="text" id="profile-address" class="form-control" value="' + (user.address || '') + '" style="padding: 8px; font-size: 0.9rem;"></div>';
+  html += '<button type="submit" class="btn btn-primary" style="width: 100%; padding: 8px; font-size: 0.9rem;">Guardar Cambios</button>';
   html += '</form></div>';
   
-  // Estadísticas
-  html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">';
-  html += '<div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">';
-  html += '<div style="font-size: 2.5rem; color: #667eea; font-weight: bold;">' + totalOrders + '</div>';
-  html += '<p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #666;">Pedidos totales</p>';
-  html += '</div>';
-  html += '<div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">';
-  html += '<div style="font-size: 2.5rem; color: #28a745; font-weight: bold;">' + membership.discount + '%</div>';
-  html += '<p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #666;">Descuento actual</p>';
-  html += '</div>';
-  html += '<div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">';
-  html += '<div style="font-size: 2.5rem; color: #ffc107; font-weight: bold;">' + membership.icon + '</div>';
-  html += '<p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #666;">Nivel: ' + (user.membershipLevel || 'Plebeyo') + '</p>';
-  html += '</div>';
-  html += '</div>';
-  
   // Historial de repartidores calificados
-  html += '<div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px;">';
-  html += '<h4 style="margin-bottom: 15px;">🚴 Repartidores que te Atendieron</h4>';
+  html += '<div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 15px;">';
+  html += '<h5 style="margin-bottom: 12px; font-size: 1rem;">🚴 Repartidores que te Atendieron</h5>';
   
   var deliveryHistory = user.deliveryHistory || [
     { name: 'Carlos Rodríguez', orderId: 'ORD-001', date: '15/01/2025', rating: 5 },
@@ -821,41 +809,39 @@ function renderProfile() {
   ];
   
   if (deliveryHistory.length === 0) {
-    html += '<p style="text-align: center; color: #999; padding: 20px;">Aún no tienes entregas completadas</p>';
+    html += '<p style="text-align: center; color: #999; padding: 15px; font-size: 0.9rem;">Aún no tienes entregas completadas</p>';
   } else {
     for (var i = 0; i < deliveryHistory.length; i++) {
       var d = deliveryHistory[i];
-      html += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee;">';
-      html += '<div><strong>' + d.name + '</strong><br><span style="font-size: 0.85rem; color: #666;">Pedido #' + d.orderId + ' - ' + d.date + '</span></div>';
-      html += '<div style="font-size: 1.2rem;">';
+      html += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">';
+      html += '<div><strong style="font-size: 0.9rem;">' + d.name + '</strong><br><span style="font-size: 0.8rem; color: #666;">Pedido #' + d.orderId + ' - ' + d.date + '</span></div>';
+      html += '<div style="font-size: 1rem;">';
       for (var j = 0; j < 5; j++) {
         html += j < d.rating ? '⭐' : '☆';
       }
-      html += ' <span style="font-size: 0.9rem; color: #666;">(' + d.rating + '/5)</span></div></div>';
+      html += ' <span style="font-size: 0.8rem; color: #666;">(' + d.rating + '/5)</span></div></div>';
     }
   }
   html += '</div>';
   
   // Beneficios de membresía
-  html += '<div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 25px; border-radius: 12px; margin-bottom: 20px;">';
-  html += '<h4 style="margin-bottom: 15px;">🎁 Beneficios de tu Membresía</h4>';
-  html += '<p style="margin-bottom: 10px; font-size: 1.1rem;">' + membership.benefits + '</p>';
-  html += '<ul style="margin: 10px 0 0 20px; padding: 0;">';
-  html += '<li style="margin-bottom: 8px;">Descuento del ' + membership.discount + '% en todos tus pedidos</li>';
+  html += '<div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px;">';
+  html += '<h5 style="margin-bottom: 10px; font-size: 1rem;">🎁 Beneficios de tu Membresía</h5>';
+  html += '<p style="margin: 0; font-size: 0.9rem;">' + membership.benefits + '</p>';
   if (totalOrders < 5) {
-    html += '<li style="margin-top: 12px; font-weight: 600;">🎯 Realiza ' + (5 - totalOrders) + ' pedidos más para subir a nivel Bronce</li>';
+    html += '<p style="margin: 8px 0 0 0; font-size: 0.8rem; font-weight: 600;">🎯 Realiza ' + (5 - totalOrders) + ' pedidos más para subir a nivel Bronce</p>';
   } else if (totalOrders < 10) {
-    html += '<li style="margin-top: 12px; font-weight: 600;">🎯 Realiza ' + (10 - totalOrders) + ' pedidos más para subir a nivel Plata</li>';
+    html += '<p style="margin: 8px 0 0 0; font-size: 0.8rem; font-weight: 600;">🎯 Realiza ' + (10 - totalOrders) + ' pedidos más para subir a nivel Plata</p>';
   } else if (totalOrders < 20) {
-    html += '<li style="margin-top: 12px; font-weight: 600;">🎯 Realiza ' + (20 - totalOrders) + ' pedidos más para subir a nivel Oro</li>';
+    html += '<p style="margin: 8px 0 0 0; font-size: 0.8rem; font-weight: 600;">🎯 Realiza ' + (20 - totalOrders) + ' pedidos más para subir a nivel Oro</p>';
   } else {
-    html += '<li style="margin-top: 12px; font-weight: 600;">🏆 ¡Felicidades! Has alcanzado el nivel máximo</li>';
+    html += '<p style="margin: 8px 0 0 0; font-size: 0.8rem; font-weight: 600;">🏆 ¡Felicidades! Has alcanzado el nivel máximo</p>';
   }
-  html += '</ul></div>';
+  html += '</div>';
   
   html += getBackToHomeButton();
   
-  html += '<div style="margin-top: 40px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;">';
+  html += '<div style="margin-top: 30px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 8px; text-align: center; font-size: 0.75rem; color: #666;">';
   html += '<p style="margin: 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl</p>';
   html += '</div>';
   

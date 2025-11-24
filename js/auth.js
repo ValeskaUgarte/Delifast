@@ -31,6 +31,7 @@ function handleLogin(email, password) {
   if (!isValidEmail(email)) {
     return { success: false, message: 'Por favor, ingresa un email válido' };
   }
+  
 
   // Lista de repartidores disponibles
   var repartidores = [
