@@ -671,7 +671,7 @@ function renderTracking() {
   html += '<div class="text-center mb-4">';
   if (totalOrders === 0) {
     // ==== IMAGEN LOCAL ====
-    html += '<img src="img/tupedidoencamino1.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+    html += '<img src="img/tupedidoencamino.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
     html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
   } else {
     // ==== URL WEB ====
