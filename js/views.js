@@ -482,7 +482,7 @@ function renderSupermarkets() {
   html += '</div>';
   return html;
 }
-// VISTA: FAST FOOD (Solo comida rápida)
+
 function renderFastFood() {
   var html = '<div class="container my-4 fade-in">';
   html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">🍔 Comida Rápida</h1>';
