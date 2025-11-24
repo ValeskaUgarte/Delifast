@@ -197,20 +197,14 @@ function renderForgotPassword() {
   return html;
 }
 
-// VISTA: RESTAURANTS
+/// VISTA: RESTAURANTS (Solo restaurantes generales)
 function renderRestaurants() {
-  var html = '<div class="container my-5 fade-in">';
-  html += '<h1 class="text-center mb-4">¡Pide lo que quieras!</h1>';
-  html += '<div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">';
-  html += '<input type="text" id="search-input" class="form-control" placeholder="Buscar restaurante..." onkeyup="filterRestaurants()" style="flex: 1; min-width: 200px;">';
-  html += '<select id="category-select" class="form-control" onchange="filterRestaurants()" style="flex: 1; min-width: 200px;">';
-  html += '<option value="Todos">Todas las Categorías</option>';
-  for (var i = 0; i < categories.length; i++) {
-    html += '<option value="' + categories[i].name + '">' + categories[i].icon + ' ' + categories[i].name + '</option>';
-  }
-  html += '</select></div>';
-  html += '<h2 class="mb-3">Restaurantes Disponibles</h2>';
-  html += '<div id="restaurants-grid" class="card-grid">' + renderRestaurantCards(restaurants) + '</div>';
+  var html = '<div class="container my-4 fade-in">';
+  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">🍽️ Restaurantes</h1>';
+  html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
+  html += renderRestaurantCards(restaurants);
+  html += '</div>';
+  html += getBackToHomeButton();
   html += '</div>';
   return html;
 }
@@ -291,19 +285,22 @@ function renderRestaurants() {
   return html;
 }
 
-// VISTA: RESTAURANT DETAIL
+// VISTA: RESTAURANT DETAIL (Funciona para TODOS los establecimientos)
 function renderRestaurantDetail(restaurantId) {
   var restaurant = null;
-  for (var i = 0; i < restaurants.length; i++) {
-    if (restaurants[i].id === parseInt(restaurantId)) {
-      restaurant = restaurants[i];
+  var allRestaurants = [...restaurants, ...fastFood, ...pizzaRestaurants, ...sushiRestaurants, ...supermarkets, ...pharmacies];
+  
+  for (var i = 0; i < allRestaurants.length; i++) {
+    if (allRestaurants[i].id === parseInt(restaurantId)) {
+      restaurant = allRestaurants[i];
       break;
     }
   }
   
-  if (!restaurant) return '<div class="container"><h2>Restaurante no encontrado</h2></div>';
+  if (!restaurant) return '<div class="container"><h2>Establecimiento no encontrado</h2></div>';
   
   var restaurantProducts = products[restaurantId] || [];
+  var restaurantAddress = addresses[restaurantId] || "Dirección no disponible";
   
   var html = '<div class="fade-in">';
   html += '<div style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + restaurant.image + '); background-size: cover; background-position: center; color: white; padding: 80px 20px 40px;">';
@@ -319,42 +316,47 @@ function renderRestaurantDetail(restaurantId) {
   html += '</div></div></div>';
   
   html += '<div class="container my-4">';
+  
+  // Dirección del establecimiento
+  html += '<div class="alert alert-info">';
+  html += '<strong>📍 Dirección:</strong> ' + restaurantAddress;
+  html += '</div>';
+  
   if (!restaurant.available) {
-    html += '<div class="alert alert-danger">Este restaurante está cerrado temporalmente</div>';
+    html += '<div class="alert alert-danger">Este establecimiento está cerrado temporalmente</div>';
   }
-  html += '<div class="alert alert-info">Pedido mínimo: ' + formatPrice(restaurant.minOrder) + '</div>';
+  html += '<div class="alert alert-warning">Pedido mínimo: ' + formatPrice(restaurant.minOrder) + '</div>';
   
-  html += '<h4 class="mb-3">Menú</h4>';
-  html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">';
+  html += '<h4 class="mb-3">Productos Disponibles</h4>';
   
-  for (var i = 0; i < restaurantProducts.length; i++) {
-    var p = restaurantProducts[i];
-    html += '<div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">';
-    html += '<img src="' + p.image + '" alt="' + p.name + '" style="width: 100%; height: 100px; object-fit: cover;">';
-    html += '<div style="padding: 10px;">';
-    html += '<h5 style="font-size: 0.95rem; margin: 0 0 3px 0; font-weight: 600;">' + p.name + '</h5>';
-    html += '<p style="font-size: 0.75rem; color: #999; margin: 0 0 5px 0;">' + p.category + '</p>';
-    html += '<p style="font-size: 0.8rem; color: #666; margin: 0 0 8px 0; line-height: 1.3;">' + p.description + '</p>';
-    html += '<div style="display: flex; justify-content: space-between; align-items: center;">';
-    html += '<h5 style="margin: 0; color: #0d6efd; font-size: 1rem;">' + formatPrice(p.price) + '</h5>';
-    var productJson = JSON.stringify(p).replace(/"/g, '&quot;');
-    html += '<button onclick=\'addToCart(' + productJson + ')\' class="btn ' + (p.available ? 'btn-primary' : '') + '" ' + (!p.available ? 'disabled' : '') + ' style="padding: 6px 12px; font-size: 0.8rem;">';
-    html += p.available ? '🛒 Agregar' : 'No disponible';
-    html += '</button></div></div></div>';
+  if (restaurantProducts.length === 0) {
+    html += '<div class="text-center" style="padding: 40px;">';
+    html += '<p style="color: #666;">Próximamente tendremos productos disponibles</p>';
+    html += '</div>';
+  } else {
+    html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">';
+    
+    for (var i = 0; i < restaurantProducts.length; i++) {
+      var p = restaurantProducts[i];
+      html += '<div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform=\'translateY(-3px)\'" onmouseout="this.style.transform=\'translateY(0)\'">';
+      html += '<img src="' + p.image + '" alt="' + p.name + '" style="width: 100%; height: 120px; object-fit: cover;">';
+      html += '<div style="padding: 12px;">';
+      html += '<h5 style="font-size: 0.95rem; margin: 0 0 3px 0; font-weight: 600;">' + p.name + '</h5>';
+      html += '<p style="font-size: 0.75rem; color: #999; margin: 0 0 5px 0;">' + p.category + '</p>';
+      html += '<p style="font-size: 0.8rem; color: #666; margin: 0 0 8px 0; line-height: 1.3; min-height: 40px;">' + p.description + '</p>';
+      html += '<div style="display: flex; justify-content: space-between; align-items: center;">';
+      html += '<h5 style="margin: 0; color: #0d6efd; font-size: 1rem;">' + formatPrice(p.price) + '</h5>';
+      var productJson = JSON.stringify(p).replace(/"/g, '&quot;');
+      html += '<button onclick=\'addToCart(' + productJson + ')\' class="btn ' + (p.available ? 'btn-primary' : '') + '" ' + (!p.available ? 'disabled' : '') + ' style="padding: 6px 12px; font-size: 0.8rem;">';
+      html += p.available ? '🛒 Agregar' : 'No disponible';
+      html += '</button></div></div></div>';
+    }
+    html += '</div>';
   }
-  
-  html += '</div>';
-  
-  html += '<div style="margin-top: 50px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;">';
-  html += '<p style="margin: 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl | WhatsApp: +569 8765 4321</p>';
-  html += '</div>';
   
   html += '</div></div>';
-  
   return html;
 }
-
-
 
 // VISTA: CART
 function renderCart() {
@@ -469,65 +471,42 @@ function renderCheckout() {
   return html;
 }
 
-// VISTA: SUPERMARKETS
+// VISTA: SUPERMARKETS (Solo supermercados)
 function renderSupermarkets() {
   var html = '<div class="container my-4 fade-in">';
   html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">🛒 Supermercados</h1>';
   html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
-  var superList = restaurants.filter(function(r) { return r.category === 'Supermercado'; });
-  html += superList.length > 0 ? renderRestaurantCards(superList) : '<div class="card text-center" style="padding: 40px;"><h3>Próximamente</h3></div>';
+  html += renderRestaurantCards(supermarkets);
   html += '</div>';
-  
   html += getBackToHomeButton();
-  
-  html += '<div style="margin-top: 60px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;">';
-  html += '<p style="margin: 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl</p>';
-  html += '</div>';
-  
   html += '</div>';
   return html;
 }
-
-// VISTA: FAST FOOD
+// VISTA: FAST FOOD (Solo comida rápida)
 function renderFastFood() {
-  var html = '<div class="container my-5 fade-in">';
-  html += '<h1 class="text-center mb-4" style="color: #333;">🍔 Comida Rápida</h1>';
-  html += '<p class="text-center text-muted mb-5">Las mejores cadenas de comida rápida</p>';
-  html += '<div class="card-grid">';
-  
-  var fastFoodList = restaurants.filter(function(r) {
-    return r.category === 'Americana';
-  });
-  
-  if (fastFoodList.length > 0) {
-    html += renderRestaurantCards(fastFoodList);
-  } else {
-    html += '<div class="card text-center" style="padding: 40px;"><h3>Próximamente</h3><p class="text-muted">Estamos agregando más opciones</p></div>';
-  }
-  
-  html += '</div></div>';
+  var html = '<div class="container my-4 fade-in">';
+  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">🍔 Comida Rápida</h1>';
+  html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
+  html += renderRestaurantCards(fastFood);
+  html += '</div>';
+  html += getBackToHomeButton();
+  html += '</div>';
   return html;
 }
 
-// VISTA: PHARMACIES
+// VISTA: PHARMACIES (Solo farmacias)
 function renderPharmacies() {
   var html = '<div class="container my-4 fade-in">';
-  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">Farmacias</h1>';
-  html += '<p class="text-center text-muted mb-4" style="font-size: 0.9rem;">Solo medicamentos genéricos sin receta y productos de higiene personal</p>';
+  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">💊 Farmacias</h1>';
   html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
-  var pharmaList = restaurants.filter(function(r) { return r.category === 'Farmacia'; });
-  html += pharmaList.length > 0 ? renderRestaurantCards(pharmaList) : '<div class="card text-center" style="padding: 40px;"><h3>Próximamente</h3></div>';
+  html += renderRestaurantCards(pharmacies);
   html += '</div>';
-  
   html += getBackToHomeButton();
-  
-  html += '<div style="margin-top: 60px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;">';
-  html += '<p style="margin: 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl</p>';
-  html += '</div>';
-  
   html += '</div>';
   return html;
 }
+
+
 // VISTA: MEMBERSHIP (Hazte Socio)
 function renderMembership() {
   var html = '<div class="container my-5 text-center fade-in">';
@@ -542,16 +521,33 @@ function renderMembership() {
   return html;
 }
 
-// VISTA: PROMOTIONS (Promociones)
+// VISTA: PROMOTIONS (Promociones reales)
 function renderPromotions() {
-  var html = '<div class="container my-5 text-center fade-in">';
-  html += '<img src="img/sinpromo.jpg" alt="Sin promociones" style="max-width: 500px; width: 90%; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">';
+  var html = '<div class="container my-4 fade-in">';
+  html += '<h2 class="text-center mb-4" style="font-size: 1.5rem;">🎉 Promociones Activas</h2>';
+  
+  if (promotions.length === 0) {
+    html += '<div class="text-center">';
+    html += '<img src="img/sinpromo.jpg" alt="Sin promociones" style="max-width: 300px; width: 90%; border-radius: 10px; margin-bottom: 20px;">';
+    html += '</div>';
+  } else {
+    html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">';
+    for (var i = 0; i < promotions.length; i++) {
+      var promo = promotions[i];
+      html += '<div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform=\'translateY(-3px)\'" onmouseout="this.style.transform=\'translateY(0)\'">';
+      html += '<img src="' + promo.image + '" alt="' + promo.title + '" style="width: 100%; height: 120px; object-fit: cover;">';
+      html += '<div style="padding: 15px;">';
+      html += '<h4 style="margin: 0 0 8px 0; font-size: 1rem; color: #333;">' + promo.title + '</h4>';
+      html += '<p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #666; line-height: 1.4;">' + promo.description + '</p>';
+      html += '<div style="display: flex; justify-content: space-between; align-items: center;">';
+      html += '<span style="font-size: 0.8rem; color: #888;">' + promo.restaurant + '</span>';
+      html += '<span style="font-size: 0.75rem; color: #28a745; font-weight: 600;">Hasta ' + promo.validUntil + '</span>';
+      html += '</div></div></div>';
+    }
+    html += '</div>';
+  }
+  
   html += getBackToHomeButton();
-  
-  html += '<div style="margin-top: 80px; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.85rem; color: #666;">';
-  html += '<p style="margin: 5px 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl | WhatsApp: +569 8765 4321</p>';
-  html += '</div>';
-  
   html += '</div>';
   return html;
 }
@@ -620,10 +616,10 @@ function renderTracking() {
   
   html += '<div class="text-center mb-4">';
   if (totalOrders === 0) {
-    html += '<img src="img/tupedidocamino2.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+    html += '<img src="img/tupedidocamino3.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
     html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
   } else {
-    html += '<img src="https://pbs.twimg.com/media/G6eL6RTWMAAn0nk?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+    html += '<img src="https://pbs.twimg.com/media/G6eyxMsXkAAbDT3?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
   }
   html += '</div>';
   
@@ -689,29 +685,26 @@ function renderTracking() {
 //   return html;
 // }
 
-// VISTA: PIZZA
+// VISTA: PIZZA (Solo pizzerías)
 function renderPizza() {
   var html = '<div class="container my-4 fade-in">';
-  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">Pizzerías</h1>';
+  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">🍕 Pizzerías</h1>';
   html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
-  var pizzaList = restaurants.filter(function(r) { return r.category === 'Italiana'; });
-  html += pizzaList.length > 0 ? renderRestaurantCards(pizzaList) : '<div class="card text-center" style="padding: 40px;"><h3>Próximamente</h3></div>';
+  html += renderRestaurantCards(pizzaRestaurants);
   html += '</div>';
   html += getBackToHomeButton();
-  html += '<div style="margin-top: 60px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;"><p style="margin: 0;">📍 Almirante Barroso 79, Santiago | 📱 +569 8765 4321 | 📧 contacto@delifast.cl</p></div>';
   html += '</div>';
   return html;
 }
 
+// VISTA: SUSHI (Solo sushi)
 function renderSushi() {
   var html = '<div class="container my-4 fade-in">';
-  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">Sushi</h1>';
+  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">🍣 Sushi</h1>';
   html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
-  var sushiList = restaurants.filter(function(r) { return r.category === 'Japonesa'; });
-  html += sushiList.length > 0 ? renderRestaurantCards(sushiList) : '<div class="card text-center" style="padding: 40px;"><h3>Próximamente</h3></div>';
+  html += renderRestaurantCards(sushiRestaurants);
   html += '</div>';
   html += getBackToHomeButton();
-  html += '<div style="margin-top: 60px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;"><p style="margin: 0;">📍 Almirante Barroso 79, Santiago | 📱 +569 8765 4321 | 📧 contacto@delifast.cl</p></div>';
   html += '</div>';
   return html;
 }
@@ -845,6 +838,34 @@ function renderProfile() {
   html += '<p style="margin: 0;">Almirante Barroso 79, Santiago | +569 8765 4321 | contacto@delifast.cl</p>';
   html += '</div>';
   
+  html += '</div>';
+  return html;
+}
+
+function renderPromotions() {
+  var html = '<div class="container my-4 fade-in">';
+  html += '<h1 class="text-center mb-4">🎉 Promociones Activas</h1>';
+  
+  if (promotions.length === 0) {
+    html += '<img src="img/sinpromo.jpg" alt="Sin promociones" style="max-width: 500px; width: 90%; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">';
+  } else {
+    html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
+    for (var i = 0; i < promotions.length; i++) {
+      var promo = promotions[i];
+      html += '<div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">';
+      html += '<img src="' + promo.image + '" alt="' + promo.title + '" style="width: 100%; height: 200px; object-fit: cover;">';
+      html += '<div style="padding: 20px;">';
+      html += '<h3 style="margin: 0 0 10px 0; color: #333;">' + promo.title + '</h3>';
+      html += '<p style="margin: 0 0 10px 0; color: #666;">' + promo.description + '</p>';
+      html += '<div style="display: flex; justify-content: space-between; align-items: center;">';
+      html += '<span style="font-size: 0.9rem; color: #999;">' + promo.restaurant + '</span>';
+      html += '<span style="font-size: 0.8rem; color: #28a745;">Válido hasta ' + promo.validUntil + '</span>';
+      html += '</div></div></div>';
+    }
+    html += '</div>';
+  }
+  
+  html += getBackToHomeButton();
   html += '</div>';
   return html;
 }
