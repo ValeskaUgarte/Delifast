@@ -52,14 +52,31 @@ function submitForgotPassword(event) {
 }
 
 // Submit Checkout
+// Submit Checkout
 function submitCheckout(event) {
   event.preventDefault();
   
+  var user = getCurrentUser();
+  if (!user) {
+    navigate('login');
+    return;
+  }
+  
   var orderId = 'ORD-' + Date.now();
+  var cart = getCart();
+  
+  // Actualizar contador de pedidos del usuario
+  user.totalOrders = (user.totalOrders || 0) + 1;
+  saveUser(user);
+  
+  // Limpiar carrito
   clearCart();
   
-  alert('¡Pedido realizado con éxito! ID: ' + orderId);
-  navigate('home'); // Volver a home después de checkout
+  // Mostrar confirmación
+  alert('¡Pedido realizado con éxito! 🎉\n\nID del Pedido: ' + orderId + '\nProductos: ' + cart.length + '\n\nTu pedido llegará pronto.');
+  
+  // Redirigir a home
+  navigate('home');
 }
 
 // Actualizar perfil

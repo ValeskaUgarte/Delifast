@@ -300,7 +300,7 @@ function renderRestaurantDetail(restaurantId) {
   if (!restaurant) return '<div class="container"><h2>Establecimiento no encontrado</h2></div>';
   
   var restaurantProducts = products[restaurantId] || [];
-  var restaurantAddress = addresses[restaurantId] || "Dirección no disponible";
+  var restaurantAddress = restaurant.address || "Dirección no disponible";
   
   var html = '<div class="fade-in">';
   html += '<div style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + restaurant.image + '); background-size: cover; background-position: center; color: white; padding: 80px 20px 40px;">';
@@ -428,7 +428,6 @@ function renderCart() {
   
   return html;
 }
-
 // VISTA: CHECKOUT
 function renderCheckout() {
   var user = getCurrentUser();
@@ -456,6 +455,7 @@ function renderCheckout() {
   html += '<label><input type="radio" name="payment" value="cash"> 💵 Efectivo</label></div>';
   html += '<button type="submit" class="btn btn-primary" style="width: 100%;">Confirmar Pedido - ' + formatPrice(total) + '</button>';
   html += '</form></div>';
+  
   
   html += '<div class="card" style="height: fit-content;"><h5>Resumen</h5>';
   for (var i = 0; i < cart.length; i++) {
@@ -616,7 +616,7 @@ function renderTracking() {
   
   html += '<div class="text-center mb-4">';
   if (totalOrders === 0) {
-    html += '<img src="img/tupedidocamino3.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
+    html += '<img src="img/tupedidoencamino3.jpg" alt="Aún no has pedido" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
     html += '<p style="font-size: 1.2rem; color: #666; margin-top: 20px;">Aún no has realizado ningún pedido</p>';
   } else {
     html += '<img src="https://pbs.twimg.com/media/G6eyxMsXkAAbDT3?format=jpg&name=medium" alt="Tu Pedido en Camino" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">';
@@ -709,19 +709,19 @@ function renderSushi() {
   return html;
 }
 
-// VISTA: FAST FOOD
-function renderFastFood() {
-  var html = '<div class="container my-4 fade-in">';
-  html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">Comida Rápida</h1>';
-  html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
-  var fastList = restaurants.filter(function(r) { return r.category === 'Americana'; });
-  html += fastList.length > 0 ? renderRestaurantCards(fastList) : '<div class="card text-center" style="padding: 40px;"><h3>Próximamente</h3></div>';
-  html += '</div>';
-  html += getBackToHomeButton();
-  html += '<div style="margin-top: 60px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;"><p style="margin: 0;">📍 Almirante Barroso 79, Santiago | 📱 +569 8765 4321 | 📧 contacto@delifast.cl</p></div>';
-  html += '</div>';
-  return html;
-}
+// // VISTA: FAST FOOD
+// function renderFastFood() {
+//   var html = '<div class="container my-4 fade-in">';
+//   html += '<h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">Comida Rápida</h1>';
+//   html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">';
+//   var fastList = restaurants.filter(function(r) { return r.category === 'Americana'; });
+//   html += fastList.length > 0 ? renderRestaurantCards(fastList) : '<div class="card text-center" style="padding: 40px;"><h3>Próximamente</h3></div>';
+//   html += '</div>';
+//   html += getBackToHomeButton();
+//   html += '<div style="margin-top: 60px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; text-align: center; font-size: 0.8rem; color: #666;"><p style="margin: 0;">📍 Almirante Barroso 79, Santiago | 📱 +569 8765 4321 | 📧 contacto@delifast.cl</p></div>';
+//   html += '</div>';
+//   return html;
+// }
 
 // VISTA: CALL DELIVERY (Llamar Repartidor)
 function renderCallDelivery() {

@@ -10,7 +10,8 @@ var restaurants = [
     minOrder: 8990,
     image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500",
     description: "Auténtica cocina española y paellas",
-    available: true
+    available: true,
+    addresses: ["Av. Providencia 1234, Santiago", "Calle Las Condes 5678, Santiago"]
   },
   {
     id: 2,
@@ -22,7 +23,8 @@ var restaurants = [
     minOrder: 12000,
     image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=500",
     description: "Comida chilena fusión con vinos premium",
-    available: true
+    available: true,
+    addresses: ["Av. Vitacura 2345, Santiago", "Calle Lastarria 678, Santiago"]
   },
   {
     id: 3,
@@ -34,7 +36,8 @@ var restaurants = [
     minOrder: 15000,
     image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500",
     description: "Alta cocina peruano-japonesa",
-    available: true
+    available: true,
+    addresses: ["Av. Alonso de Córdova 3456, Santiago", "Calle El Golf 789, Santiago"]
   }
 ];
 
@@ -50,7 +53,8 @@ var fastFood = [
     minOrder: 6990,
     image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500",
     description: "El mejor pollo frito crujiente de Santiago",
-    available: true
+    available: true,
+    addresses: ["Av. Libertador Bernardo O'Higgins 1234, Santiago", "Calle San Diego 5678, Santiago"] 
   },
   {
     id: 102,
@@ -62,7 +66,8 @@ var fastFood = [
     minOrder: 5990,
     image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500",
     description: "Hamburguesas, papas fritas y más",
-    available: true
+    available: true,
+    addresses: ["Av. Apoquindo 2345, Santiago", "Calle Manuel Montt 678, Santiago"]
   },
   {
     id: 103,
@@ -74,7 +79,8 @@ var fastFood = [
     minOrder: 4990,
     image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?w=500",
     description: "Sandwiches artesanales y comida rápida",
-    available: true
+    available: true,
+    addresses: ["Av. Vicuña Mackenna 3456, Santiago", "Calle Huérfanos 789, Santiago"]  
   },
   {
     id: 104,
@@ -86,7 +92,8 @@ var fastFood = [
     minOrder: 6490,
     image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500",
     description: "Whoppers flameados y papas crujientes",
-    available: true
+    available: true,
+    addresses: ["Av. Manuel Montt 4567, Santiago", "Calle Pajaritos 890, Santiago"]
   }
 ];
 
@@ -102,7 +109,8 @@ var pizzaRestaurants = [
     minOrder: 8990,
     image: "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=500",
     description: "Pizzas con borde relleno de queso",
-    available: true
+    available: true,
+    addresses: ["Av. Nueva Providencia 345, Santiago", "Calle San Antonio 678, Santiago"] 
   },
   {
     id: 202,
@@ -114,7 +122,8 @@ var pizzaRestaurants = [
     minOrder: 7990,
     image: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=500",
     description: "Pizzas recién horneadas a domicilio",
-    available: true
+    available: true,
+    addresses: ["Av. Los Leones 456, Santiago", "Calle Merced 789, Santiago"]
   },
   {
     id: 203,
@@ -126,7 +135,8 @@ var pizzaRestaurants = [
     minOrder: 5990,
     image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?w=500",
     description: "Pizza! Pizza! Dos pizzas a precio increíble",
-    available: true
+    available: true,
+    addresses: ["Av. Irarrazabal 567, Santiago", "Calle San Pablo 890, Santiago"] 
   }
 ];
 
@@ -142,7 +152,8 @@ var sushiRestaurants = [
     minOrder: 11990,
     image: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500",
     description: "Sushi fresco y rolls creativos",
-    available: true
+    available: true,
+    addresses : ["Av. Manuel Montt 1234, Santiago", "Calle Bellavista 5678, Santiago"]  
   },
   {
     id: 302,
@@ -154,7 +165,8 @@ var sushiRestaurants = [
     minOrder: 12990,
     image: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=500",
     description: "Auténtico sushi japonés",
-    available: true
+    available: true,
+    addresses : ["Av. Vitacura 2345, Santiago", "Calle Lastarria 6789, Santiago"] 
   },
   {
     id: 303,
@@ -166,7 +178,8 @@ var sushiRestaurants = [
     minOrder: 14990,
     image: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=500",
     description: "Sushi premium y platos japoneses",
-    available: true
+    available: true,
+    addresses : ["Av. Alonso de Córdova 3456, Santiago", "Calle El Golf 7890, Santiago"]  
   }
 ];
 
@@ -182,7 +195,8 @@ var supermarkets = [
     minOrder: 20000,
     image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=500",
     description: "Calidad y variedad",
-    available: true
+    available: true,
+    addresses : ["Av. Kennedy 1234, Santiago", "Calle Los Leones 5678, Santiago"]
   },
   {
     id: 402,
@@ -194,7 +208,8 @@ var supermarkets = [
     minOrder: 12000,
     image: "https://images.unsplash.com/photo-1601599561213-832382fd07ba?w=500",
     description: "Fresco y cerca de ti",
-    available: true
+    available: true,
+    addresses : ["Av. Vicuña Mackenna 2345, Santiago", "Calle Huérfanos 6789, Santiago"]
   },
   {
     id: 403,
@@ -206,7 +221,8 @@ var supermarkets = [
     minOrder: 18000,
     image: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=500",
     description: "Precios bajos siempre",
-    available: true
+    available: true,
+    addresses : ["Av. Pajaritos 3456, Santiago", "Calle San Pablo 7890, Santiago"]  
   },
   {
     id: 404,
@@ -218,7 +234,8 @@ var supermarkets = [
     minOrder: 15000,
     image: "https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=500",
     description: "Todo para tu hogar con los mejores precios",
-    available: true
+    available: true,
+    addresses : ["Av. San Martín 4567, Santiago", "Calle Independencia 8901, Santiago"]
   },
   {
     id: 405,
@@ -230,7 +247,8 @@ var supermarkets = [
     minOrder: 25000,
     image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
     description: "Precios mayoristas para todos",
-    available: true
+    available: true,
+    addresses : ["Av. Lo Espejo 5678, Santiago", "Calle Recoleta 9012, Santiago"]
   },
   {
     id: 406,
@@ -242,7 +260,8 @@ var supermarkets = [
     minOrder: 10000,
     image: "https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?w=500", 
     description: "Lo mejor para tu mesa",
-    available: true
+    available: true,
+    addresses : ["Av. La Florida 6789, Santiago", "Calle Macul 1234, Santiago"]
   }
 ];
 
@@ -258,7 +277,8 @@ var pharmacies = [
     minOrder: 5000,
     image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500",
     description: "Medicamentos y productos de cuidado personal",
-    available: true
+    available: true,
+    addresses : ["Av. Libertador Bernardo O'Higgins 1234, Santiago", "Calle San Diego 5678, Santiago"]
   },
   {
     id: 502,
@@ -270,7 +290,8 @@ var pharmacies = [
     minOrder: 4000,
     image: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=500",
     description: "Tu salud y bienestar a domicilio",
-    available: true
+    available: true,
+    addresses : ["Av. Apoquindo 2345, Santiago", "Calle Manuel Montt 678, Santiago"]
   },
   {
     id: 503,
@@ -282,7 +303,8 @@ var pharmacies = [
     minOrder: 4500,
     image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=500",
     description: "Medicamentos y productos de farmacia",
-    available: true
+    available: true,
+    addresses : ["Av. Vicuña Mackenna 3456, Santiago", "Calle Huérfanos 789, Santiago"] 
   }
 ];
 
@@ -443,3 +465,39 @@ var products = {
     { id: 1109, restaurantId: 3, name: "Anticuchos x3", description: "Brochetas de corazón marinadas", price: 9990, image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?w=400", category: "Entradas", available: true }
   ]
 };
+
+// ========== PROMOCIONES REALES ==========
+var promotions = [
+  {
+    id: 1,
+    title: "🍗 2x1 en Alitas KFC",
+    description: "Lleva 8 alitas picantes al precio de 4. Solo por hoy!",
+    restaurant: "KFC",
+    validUntil: "2025-01-20",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400"
+  },
+  {
+    id: 2,
+    title: "🍔 McMenú a $4.990",
+    description: "Big Mac + Papas + Bebida por solo $4.990",
+    restaurant: "McDonald's", 
+    validUntil: "2025-01-25",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400"
+  },
+  {
+    id: 3,
+    title: "🛒 20% OFF en Lácteos",
+    description: "20% de descuento en todos los lácteos y quesos",
+    restaurant: "Jumbo",
+    validUntil: "2025-01-18",
+    image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=400"
+  },
+  {
+    id: 4,
+    title: "🚚 Envío Gratis Supermercados",
+    description: "Envío gratis en pedidos sobre $25.000 en supermercados",
+    restaurant: "Todos los Supermercados",
+    validUntil: "2025-01-31", 
+    image: "https://images.unsplash.com/photo-1601599561213-832382fd07ba?w=400"
+  }
+];
